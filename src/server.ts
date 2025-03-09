@@ -9,7 +9,7 @@ async function connectServer() {
   try {
     await mongoose.connect(databaseURI as string);
     app.listen(port, () => {
-      console.log(`PH-University server running on port ${port}`);
+      console.log(`Stationery shop server running on port ${port}`);
     });
   } catch (error) {
     console.log(error);
