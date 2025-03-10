@@ -10,7 +10,7 @@ const registerUser = catchAsync(async (req, res) => {
     statusCode: isTrue ? 200 : 500,
     success: isTrue,
     message: isTrue
-      ? 'Congratulation to the new World!'
+      ? 'User Registered successfully done!'
       : 'Registration failed!',
     data: isTrue ? result : [],
   });
