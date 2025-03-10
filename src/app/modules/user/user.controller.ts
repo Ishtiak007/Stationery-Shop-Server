@@ -17,6 +17,20 @@ const registerUser = catchAsync(async (req, res) => {
   });
 });
 
+//find all user
+const getAllUser = catchAsync(async (req, res) => {
+  const users = await UserServices.getAllUsersFromDB();
+  const isTrue: boolean = users ? true : false;
+
+  sendResponse(res, {
+    statusCode: isTrue ? 200 : 504,
+    success: isTrue,
+    message: isTrue ? 'Users retrieved Successfully!' : 'You are forbidden',
+    data: isTrue ? users : [],
+  });
+});
+
 export const UserController = {
   registerUser,
+  getAllUser,
 };
