@@ -16,6 +16,7 @@
   "description": "",
   "dependencies": {
     "@types/http-status": "^0.2.30",
+    "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
