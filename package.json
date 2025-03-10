@@ -15,11 +15,14 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@types/cookie-parser": "^1.4.8",
     "@types/http-status": "^0.2.30",
     "bcryptjs": "^3.0.2",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.8.2",
     "vercel": "^39.1.1",
     "zod": "^3.23.8"
@@ -33,6 +36,7 @@
     "@types/node": "^22.9.1",
     "eslint": "^9.15.0",
     "globals": "^15.12.0",
+    "http-status": "^2.1.0",
     "prettier": "3.3.3",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.6.3",

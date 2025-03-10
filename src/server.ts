@@ -1,19 +1,16 @@
-/* eslint-disable no-console */
 import mongoose from 'mongoose';
 import app from './app';
 import config from './app/config';
 
-const { port, databaseURI } = config;
-
-async function connectServer() {
+async function main() {
   try {
-    await mongoose.connect(databaseURI as string);
-    app.listen(port, () => {
-      console.log(`Stationery shop server running on port ${port}`);
+    await mongoose.connect(config.databaseURI as string);
+    app.listen(config.port, () => {
+      console.log(`Server Running  on port ${config.port}`);
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    console.log(err);
   }
 }
 
-connectServer();
+main();
