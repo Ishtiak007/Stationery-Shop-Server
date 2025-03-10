@@ -16,5 +16,13 @@ export default [
       'prefer-const': 'error',
       'no-console': 'warn',
     },
+    globals: {
+      // Node.js globals
+      require: 'readonly',
+      module: 'readonly',
+      exports: 'readonly',
+      process: 'readonly',
+      console: 'readonly',
+    },
   },
 ];
