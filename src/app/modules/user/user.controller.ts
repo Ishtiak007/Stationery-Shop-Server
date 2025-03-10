@@ -12,7 +12,7 @@ const registerUser = catchAsync(async (req, res) => {
     success: isTrue,
     message: isTrue
       ? 'User Registered successfully done!'
-      : 'Registration failed!',
+      : 'Failed to registered!',
     data: isTrue ? result : [],
   });
 });
