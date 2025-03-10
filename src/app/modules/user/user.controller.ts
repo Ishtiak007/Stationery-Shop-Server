@@ -1,5 +1,6 @@
 import catchAsync from '../../../utility/catchAsync';
 import sendResponse from '../../../utility/sendResponse';
+import { UserServices } from './user.services';
 
 // Create User -register
 const registerUser = catchAsync(async (req, res) => {
