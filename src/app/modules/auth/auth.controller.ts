@@ -21,6 +21,32 @@ const loginUser = catchAsync(async (req, res) => {
   });
 });
 
+// user logout
+const logout = catchAsync(async (req, res) => {
+  if (req.cookies.token && req.headers.authorization) {
+    res.clearCookie('token', {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+    });
+
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: 'Logout successful',
+      data: [],
+    });
+  } else {
+    sendResponse(res, {
+      statusCode: 400,
+      success: false,
+      message: 'No token found. User is not logged in.',
+      data: [],
+    });
+  }
+});
+
 export const AuthController = {
   loginUser,
+  logout,
 };
