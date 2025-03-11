@@ -48,6 +48,22 @@ const logout = catchAsync(async (req, res) => {
   }
 });
 
+//Change password
+const changePassword = catchAsync(async (req, res) => {
+  const { ...passwordData } = req.body;
+
+  const result = await AuthServices.changePasswordIntoDB(
+    req.user,
+    passwordData,
+  );
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    message: 'Password changed successfully',
+    success: true,
+    data: result,
+  });
+});
+
 export const AuthController = {
   loginUser,
   logout,
