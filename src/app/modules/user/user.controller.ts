@@ -1,3 +1,4 @@
+import AppError from '../../../errors/AppError';
 import catchAsync from '../../../utility/catchAsync';
 import sendResponse from '../../../utility/sendResponse';
 import { UserServices } from './user.services';
@@ -44,8 +45,28 @@ const getMe = catchAsync(async (req, res) => {
   });
 });
 
+//update profiel
+const updateProfile = catchAsync(async (req, res) => {
+  const { role } = req.body;
+  if (role === 'admin' && req.user.role != 'admin') {
+    throw new AppError(504, 'Only Admin can change the role!');
+  }
+  const user = await UserServices.profileUpdate(req.user.email, req.body);
+  const isTrue: boolean = user ? true : false;
+
+  sendResponse(res, {
+    statusCode: isTrue ? 200 : 504,
+    success: isTrue,
+    message: isTrue
+      ? 'Users profile Updated Successfully!'
+      : 'You are forbidded',
+    data: isTrue ? user : [],
+  });
+});
+
 export const UserController = {
   registerUser,
   getAllUser,
   getMe,
+  updateProfile,
 };
