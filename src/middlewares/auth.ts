@@ -14,7 +14,7 @@ const auth = (...requiredRoles: TuserRole[]) => {
     if (!token) {
       throw new AppError(
         500,
-        'forbidden',
+        'Forbidden',
         'You are not authorized to access this route',
       );
     }
