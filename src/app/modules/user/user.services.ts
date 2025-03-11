@@ -23,8 +23,18 @@ const getMe = async (email: string, role: TRole) => {
   return result;
 };
 
+//update profile
+const profileUpdate = async (email: string, payload: Partial<TUser>) => {
+  return await UserModel.findOneAndUpdate(
+    { email },
+    { $set: payload },
+    { new: true, runValidators: true },
+  );
+};
+
 export const UserServices = {
   registerUser,
   getAllUsersFromDB,
   getMe,
+  profileUpdate,
 };
