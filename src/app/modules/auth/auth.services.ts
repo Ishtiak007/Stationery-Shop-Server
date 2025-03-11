@@ -5,6 +5,8 @@ import { UserModel } from '../user/user.model';
 import { TLoginUser } from './auth.interface';
 import { createToken } from './auth.utils';
 import bcrypt from 'bcryptjs';
+import catchAsync from '../../../utility/catchAsync';
+import sendResponse from '../../../utility/sendResponse';
 
 //login user
 const loginUser = async (payload: TLoginUser) => {
@@ -86,7 +88,21 @@ const changePassword = async (
   return null;
 };
 
+// Refresh token
+const refreshToken = catchAsync(async (req, res) => {
+  const { refreshToken } = req.cookies;
+  const result = await AuthServices.refreshToken(refreshToken);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Access token is retrieved succesfully!',
+    data: result,
+  });
+});
+
 export const AuthServices = {
   loginUser,
   changePassword,
+  refreshToken,
 };
