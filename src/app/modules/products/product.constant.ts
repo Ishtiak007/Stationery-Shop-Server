@@ -1,3 +1,5 @@
+import { TproductStatus, TproductTypes } from './product.interface';
+
 export const productTypes: TproductTypes[] = [
   'Pens',
   'Pencils',
