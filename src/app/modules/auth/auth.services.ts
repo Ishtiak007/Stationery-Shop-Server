@@ -3,10 +3,8 @@ import AppError from '../../../errors/AppError';
 import config from '../../config';
 import { UserModel } from '../user/user.model';
 import { TLoginUser } from './auth.interface';
-import { createToken } from './auth.utils';
+import { createToken, verifyToken } from './auth.utils';
 import bcrypt from 'bcryptjs';
-import catchAsync from '../../../utility/catchAsync';
-import sendResponse from '../../../utility/sendResponse';
 
 //login user
 const loginUser = async (payload: TLoginUser) => {
@@ -88,18 +86,51 @@ const changePassword = async (
   return null;
 };
 
-// Refresh token
-const refreshToken = catchAsync(async (req, res) => {
-  const { refreshToken } = req.cookies;
-  const result = await AuthServices.refreshToken(refreshToken);
+// refresh token
+const refreshToken = async (token: string) => {
+  // checking if the given token is valid
+  const decoded = verifyToken(
+    token,
+    config.access_token_secret as string,
+  ) as JwtPayload;
 
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'Access token is retrieved succesfully!',
-    data: result,
-  });
-});
+  const { email } = decoded;
+
+  // checking if the user is exist
+  const user = await UserModel.isUserExistsByCustomEmail(email);
+
+  if (!user) {
+    throw new AppError(httpStatus.NOT_FOUND, 'This user is not found !');
+  }
+  // checking if the user is already deleted
+  const isDeleted = user?.isDeleted;
+
+  if (isDeleted) {
+    throw new AppError(httpStatus.FORBIDDEN, 'This user is deleted !');
+  }
+
+  // checking if the user is blocked
+  const userStatus = user?.status;
+
+  if (userStatus === 'blocked') {
+    throw new AppError(httpStatus.FORBIDDEN, 'This user is blocked ! !');
+  }
+
+  const JwtPayload = {
+    email: user.email,
+    role: user.role,
+  };
+
+  const accessToken = createToken(
+    JwtPayload,
+    config.access_token_secret as string,
+    config.refresh_token_expires as string,
+  );
+
+  return {
+    accessToken,
+  };
+};
 
 export const AuthServices = {
   loginUser,
