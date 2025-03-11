@@ -15,4 +15,12 @@ router.post(
 // User logout
 router.post('/logout', AuthController.logout);
 
+//change password
+router.post(
+  '/change-password',
+  auth('user'),
+  validateRequest(AuthValidations.ChangePassValidationSchema),
+  AuthController.changePassword,
+);
+
 export const AuthRoutes = router;

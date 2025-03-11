@@ -16,7 +16,9 @@ const loginUser = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: accesToken ? 200 : 500,
     success: true,
-    message: accesToken ? 'login successful' : 'you are not an authorized user',
+    message: accesToken
+      ? 'The user logged in successfully.'
+      : 'you are not an authorized user',
     data: accesToken ? { token: accesToken } : [],
   });
 });
