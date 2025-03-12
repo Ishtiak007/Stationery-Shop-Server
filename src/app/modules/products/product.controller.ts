@@ -51,8 +51,24 @@ const getSingleProduct = catchAsync(async (req, res) => {
   });
 });
 
+// Update Product
+const updateProduct = catchAsync(async (req, res) => {
+  const product = await productServices.updateProduct(
+    req.params.productId,
+    req.body,
+  );
+  const isHas = product ? true : false;
+  sendResponse(res, {
+    statusCode: isHas ? 200 : 404,
+    success: isHas ? true : false,
+    message: isHas ? 'Product uPdated successfully' : ' Product not available',
+    data: isHas ? product : [],
+  });
+});
+
 export const ProductControllers = {
   createProduct,
   getAllProduct,
   getSingleProduct,
+  updateProduct,
 };
