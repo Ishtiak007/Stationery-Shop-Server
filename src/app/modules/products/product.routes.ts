@@ -26,4 +26,12 @@ router.get('/', ProductControllers.getAllProduct);
 //product by Id
 router.get('/:productId', ProductControllers.getSingleProduct);
 
+//product update
+router.patch(
+  '/:productId',
+  auth('admin'),
+  validateRequest(ProductValidations.updateProductValidation),
+  ProductControllers.updateProduct,
+);
+
 export const ProductRoutes = router;
