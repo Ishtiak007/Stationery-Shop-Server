@@ -37,7 +37,9 @@ const getAllProduct = catchAsync(async (req, res) => {
 
 // get a single product
 const getSingleProduct = catchAsync(async (req, res) => {
-  const product = await productServices.singleProduct(req.params.productId);
+  const product = await productServices.getSingleProductFromDB(
+    req.params.productId,
+  );
   const isHas = product ? true : false;
   sendResponse(res, {
     statusCode: isHas ? 200 : 404,

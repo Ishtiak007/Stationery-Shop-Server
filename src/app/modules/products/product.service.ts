@@ -29,7 +29,13 @@ const getAllProductFromDB = async (query: Record<string, unknown>) => {
   return { result, meta };
 };
 
+//single product from db
+const getSingleProductFromDB = async (productId: string) => {
+  return await ProductModel.findById(productId);
+};
+
 export const productServices = {
   createProductIntoDb,
   getAllProductFromDB,
+  getSingleProductFromDB,
 };
