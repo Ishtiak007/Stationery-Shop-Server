@@ -19,6 +19,7 @@ const createProduct = catchAsync(async (req, res) => {
     });
   }
 });
+
 export const ProductControllers = {
   createProduct,
 };
