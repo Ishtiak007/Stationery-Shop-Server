@@ -66,9 +66,23 @@ const updateProduct = catchAsync(async (req, res) => {
   });
 });
 
+// delete a product
+const deleteProduct = catchAsync(async (req, res) => {
+  const deletedProduct = await productServices.deleteProduct(
+    req.params.productId,
+  );
+  const isHas = deletedProduct ? true : false;
+  sendResponse(res, {
+    statusCode: isHas ? 200 : 404,
+    success: isHas ? true : false,
+    message: isHas ? 'Product deleted successfully' : ' Product not found',
+  });
+});
+
 export const ProductControllers = {
   createProduct,
   getAllProduct,
   getSingleProduct,
   updateProduct,
+  deleteProduct,
 };
