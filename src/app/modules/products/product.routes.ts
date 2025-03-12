@@ -34,4 +34,7 @@ router.patch(
   ProductControllers.updateProduct,
 );
 
+// delete a product
+router.delete('/:productId', auth('admin'), ProductControllers.deleteProduct);
+
 export const ProductRoutes = router;
