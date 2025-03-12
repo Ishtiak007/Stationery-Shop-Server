@@ -2,6 +2,7 @@ import { NextFunction, Request, Response, Router } from 'express';
 import auth from '../../../middlewares/auth';
 import { upload } from '../../../utility/sendImageToCloudinary';
 import validateRequest from '../../../middlewares/ValidateRequest';
+import { ProductValidations } from './product.validation';
 
 const router = Router();
 
