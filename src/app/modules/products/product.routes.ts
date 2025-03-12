@@ -3,6 +3,7 @@ import auth from '../../../middlewares/auth';
 import { upload } from '../../../utility/sendImageToCloudinary';
 import validateRequest from '../../../middlewares/ValidateRequest';
 import { ProductValidations } from './product.validation';
+import { ProductControllers } from './product.controller';
 
 const router = Router();
 
