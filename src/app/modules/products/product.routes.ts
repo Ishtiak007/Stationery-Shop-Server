@@ -20,13 +20,13 @@ router.post(
   ProductControllers.createProduct,
 );
 
-//get all products
+// get all products
 router.get('/', ProductControllers.getAllProduct);
 
-//product by Id
+// product by Id
 router.get('/:productId', ProductControllers.getSingleProduct);
 
-//product update
+// product update
 router.patch(
   '/:productId',
   auth('admin'),
