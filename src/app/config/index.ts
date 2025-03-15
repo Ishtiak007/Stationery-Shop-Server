@@ -16,4 +16,12 @@ export default {
   cloudinary_api_secret: process.env.CLOUDINARY_API_SECRET,
   admin_email: process.env.ADMIN_EMAIL,
   app_pass: process.env.APP_PASS,
+
+  sp: {
+    sp_endpoint: process.env.SP_ENDPOINT,
+    sp_user_name: process.env.SP_USERNAME,
+    sp_password: process.env.SP_PASSWORD,
+    sp_prefix: process.env.SP_PREFIX,
+    sp_return_url: process.env.SP_RETURN_URL,
+  },
 };
