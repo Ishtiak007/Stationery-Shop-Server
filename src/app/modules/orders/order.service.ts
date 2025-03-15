@@ -4,6 +4,7 @@ import { TUser } from '../user/user.interface';
 import OrderModel from './order.model';
 
 import statusCode from 'http-status';
+import { orderUtils } from './order.utils';
 
 //create
 const createOrder = async (
