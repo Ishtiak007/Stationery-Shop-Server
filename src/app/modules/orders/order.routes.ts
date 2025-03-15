@@ -4,6 +4,9 @@ import { OrderControllers } from './order.controller';
 
 const router = Router();
 
+// verify payment
+router.get('/verify', auth('admin', 'user'), OrderControllers.verifyPayment);
+
 //create order
 router.post('/', auth('admin', 'user'), OrderControllers.createOrder);
 

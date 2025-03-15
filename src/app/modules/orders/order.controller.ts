@@ -21,7 +21,7 @@ const getAllOrder = catchAsync(async (req, res) => {
     success: isHas ? true : false,
     message: isHas
       ? 'All Orders retrieved successfully'
-      : 'there is no order available',
+      : 'There is no order available',
     data: isHas ? orders : [],
   });
 });
