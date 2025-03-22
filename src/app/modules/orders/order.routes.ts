@@ -20,4 +20,7 @@ router.patch(
   OrderControllers.updateOrderStatus,
 );
 
+// delete
+router.delete('/:orderId', OrderControllers.deleteOrder);
+
 export const OrderRoutes = router;
