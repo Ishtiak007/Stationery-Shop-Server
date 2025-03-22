@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import AppError from '../../../errors/AppError';
 import catchAsync from '../../../utility/catchAsync';
 import sendResponse from '../../../utility/sendResponse';
-import { UserServices } from './user.services';
+import { deleteUserFromDB, UserServices } from './user.services';
 
 // Create User -register
 const registerUser = catchAsync(async (req, res) => {
@@ -65,19 +65,26 @@ const updateProfile = catchAsync(async (req, res) => {
   });
 });
 
-// delete user
-const deleteUser = {
-  deleteUser: catchAsync(async (req: Request, res: Response) => {
-    const { id } = req.params;
-    await UserService.deleteUserById(id);
+// delete
+const deleteUser = catchAsync(async (req: Request, res: Response) => {
+  const { userId } = req.params; // Retrieve the user ID from params
 
-    sendResponse(res, {
-      statusCode: httpStatus.OK,
-      success: true,
-      message: 'User deleted successfully',
+  const result = await deleteUserFromDB(userId); // Call the service to delete the user
+
+  if (!result) {
+    return sendResponse(res, {
+      statusCode: httpStatus.NOT_FOUND,
+      success: false,
+      message: 'User not found!',
     });
-  }),
-};
+  }
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'User deleted successfully',
+  });
+});
 
 export const UserController = {
   registerUser,

@@ -1,23 +1,36 @@
+import express, { Request, Response } from 'express';
+const app = express();
+import globalErrorHandler from './middlewares/globalErrorHandler';
+import router from './router/routes';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import express, { Application } from 'express';
-import router from './router/routes';
-import globalErrorHandler from './middlewares/globalErrorHandler';
 import NotFound from './middlewares/NotFound';
 
-const app: Application = express();
-
-//parsers
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ origin: ['http://localhost:5173'], credentials: true }));
+const corsOptions = {
+  origin: 'https://stationery-shop-frontend-beta.vercel.app', // Replace with your frontend URL
+  credentials: true, // Allow cookies to be sent
+};
 
-// application routes
+app.use(cors(corsOptions));
+
+//test route
+const test = async (req: Request, res: Response) => {
+  const hello = 'Hello I am Ishtiak. From Rangpur, Bangladesh';
+  res.send(hello);
+};
+
+app.get('/', test);
+
+//application routes
 app.use('/api', router);
 
+//
+//gloabal err handler
 app.use(globalErrorHandler);
 
-//Not Found
+//Not Found Route
 app.use(NotFound);
 
 export default app;

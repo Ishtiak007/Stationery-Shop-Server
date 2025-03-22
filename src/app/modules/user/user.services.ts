@@ -32,6 +32,14 @@ const profileUpdate = async (email: string, payload: Partial<TUser>) => {
   );
 };
 
+// delete user
+export const deleteUserFromDB = async (
+  userId: string,
+): Promise<TUser | null> => {
+  const result = await UserModel.findByIdAndDelete(userId); // Find and delete the user by ID
+  return result; // Return the result (the deleted user or null if not found)
+};
+
 export const UserServices = {
   registerUser,
   getAllUsersFromDB,

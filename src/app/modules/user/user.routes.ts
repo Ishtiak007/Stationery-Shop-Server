@@ -20,7 +20,6 @@ router.patch(
 // get all users
 router.get('/all-users', auth('user', 'admin'), UserController.getAllUser);
 
-// ban user
-router.delete('/:id', UserController.deleteUser);
+router.delete('/:userId', UserController.deleteUser);
 
 export const UserRoutes = router;
