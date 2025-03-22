@@ -1,7 +1,11 @@
 import { Request, Response } from 'express';
 import catchAsync from '../../../utility/catchAsync';
 import sendResponse from '../../../utility/sendResponse';
-import { OrderServices, updateOrderStatusService } from './order.service';
+import {
+  deleteOrderFromDB,
+  OrderServices,
+  updateOrderStatusService,
+} from './order.service';
 import statusCode from 'http-status';
 
 // create order
@@ -59,9 +63,31 @@ const updateOrderStatus = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+// delete order
+const deleteOrder = catchAsync(async (req: Request, res: Response) => {
+  const { orderId } = req.params; // Retrieve the order ID from params
+
+  const result = await deleteOrderFromDB(orderId); // Call the service to delete the order
+
+  if (!result) {
+    return sendResponse(res, {
+      statusCode: httpStatus.NOT_FOUND,
+      success: false,
+      message: 'Order not found!',
+    });
+  }
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Order deleted successfully',
+  });
+});
+
 export const OrderControllers = {
   createOrder,
   getAllOrder,
   verifyPayment,
   updateOrderStatus,
+  deleteOrder,
 };
