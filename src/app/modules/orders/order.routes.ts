@@ -13,4 +13,11 @@ router.post('/', auth('admin', 'user'), OrderControllers.createOrder);
 // get product
 router.get('/', auth('admin', 'user'), OrderControllers.getAllOrder);
 
+// Route to update order status
+router.patch(
+  '/:orderId',
+  auth('admin', 'user'),
+  OrderControllers.updateOrderStatus,
+);
+
 export const OrderRoutes = router;

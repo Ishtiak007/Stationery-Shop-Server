@@ -97,6 +97,38 @@ const verifyPayment = async (order_id: string) => {
   return verifiedPayment;
 };
 
+export const updateOrderStatusService = async (
+  orderId: string,
+  status: string,
+) => {
+  const validStatuses = [
+    'Pending',
+    'Paid',
+    'Shipped',
+    'Completed',
+    'Cancelled',
+  ];
+
+  // Check if the provided status is valid
+  if (!validStatuses.includes(status)) {
+    throw new AppError(statusCode.BAD_REQUEST, 'Invalid order status');
+  }
+
+  // Find the order by ID and update its status
+  const updatedOrder = await OrderModel.findByIdAndUpdate(
+    orderId,
+    { status },
+    { new: true, runValidators: true }, // Ensure the updated order is returned
+  );
+
+  // If no order is found, throw an error
+  if (!updatedOrder) {
+    throw new AppError(statusCode.NOT_FOUND, 'Order not found');
+  }
+
+  return updatedOrder;
+};
+
 export const OrderServices = {
   createOrder,
   getOrders,

@@ -1,6 +1,8 @@
+import { Request, Response } from 'express';
 import catchAsync from '../../../utility/catchAsync';
 import sendResponse from '../../../utility/sendResponse';
-import { OrderServices } from './order.service';
+import { OrderServices, updateOrderStatusService } from './order.service';
+import statusCode from 'http-status';
 
 // create order
 const createOrder = catchAsync(async (req, res) => {
@@ -41,8 +43,25 @@ const verifyPayment = catchAsync(async (req, res) => {
   });
 });
 
+const updateOrderStatus = catchAsync(async (req: Request, res: Response) => {
+  const { orderId } = req.params; // Retrieve orderId from route params
+  const { status } = req.body; // Get the status from request body
+
+  // Call the service to update the order status
+  const updatedOrder = await updateOrderStatusService(orderId, status);
+
+  // Send the response back to the client
+  sendResponse(res, {
+    statusCode: statusCode.OK,
+    success: true,
+    message: 'Order status updated successfully',
+    data: updatedOrder,
+  });
+});
+
 export const OrderControllers = {
   createOrder,
   getAllOrder,
   verifyPayment,
+  updateOrderStatus,
 };
