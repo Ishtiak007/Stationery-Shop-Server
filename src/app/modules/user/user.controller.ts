@@ -1,3 +1,4 @@
+import { Request, Response } from 'express';
 import AppError from '../../../errors/AppError';
 import catchAsync from '../../../utility/catchAsync';
 import sendResponse from '../../../utility/sendResponse';
@@ -64,9 +65,24 @@ const updateProfile = catchAsync(async (req, res) => {
   });
 });
 
+// delete user
+const deleteUser = {
+  deleteUser: catchAsync(async (req: Request, res: Response) => {
+    const { id } = req.params;
+    await UserService.deleteUserById(id);
+
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'User deleted successfully',
+    });
+  }),
+};
+
 export const UserController = {
   registerUser,
   getAllUser,
   getMe,
   updateProfile,
+  deleteUser,
 };
