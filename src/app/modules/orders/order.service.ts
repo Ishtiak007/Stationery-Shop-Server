@@ -5,6 +5,7 @@ import OrderModel from './order.model';
 
 import statusCode from 'http-status';
 import { orderUtils } from './order.utils';
+import { TOrder } from './order.interface';
 
 //create
 const createOrder = async (
@@ -127,6 +128,14 @@ export const updateOrderStatusService = async (
   }
 
   return updatedOrder;
+};
+
+// delete order
+export const deleteOrderFromDB = async (
+  orderId: string,
+): Promise<TOrder | null> => {
+  const result = await OrderModel.findByIdAndDelete(orderId); // Find and delete the order by ID
+  return result; // Return the result (the deleted order or null if not found)
 };
 
 export const OrderServices = {
