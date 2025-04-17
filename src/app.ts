@@ -9,7 +9,7 @@ import NotFound from './middlewares/NotFound';
 app.use(express.json());
 app.use(cookieParser());
 const corsOptions = {
-  origin: 'https://stationery-shop-frontend-beta.vercel.app', // Replace with your frontend URL
+  origin: 'http://localhost:5173', // Replace with your frontend URL
   credentials: true, // Allow cookies to be sent
 };
 

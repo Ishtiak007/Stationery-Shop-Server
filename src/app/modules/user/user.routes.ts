@@ -20,6 +20,14 @@ router.patch(
 // get all users
 router.get('/all-users', auth('user', 'admin'), UserController.getAllUser);
 
+// Delete user
 router.delete('/:userId', UserController.deleteUser);
+
+// Update status
+router.patch(
+  '/:userId/status',
+  auth('user', 'admin'),
+  UserController.updateUserStatus,
+);
 
 export const UserRoutes = router;

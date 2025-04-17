@@ -32,12 +32,18 @@ const profileUpdate = async (email: string, payload: Partial<TUser>) => {
   );
 };
 
-// delete user
-export const deleteUserFromDB = async (
+// Update status
+const updateUserStatus = async (
   userId: string,
-): Promise<TUser | null> => {
-  const result = await UserModel.findByIdAndDelete(userId); // Find and delete the user by ID
-  return result; // Return the result (the deleted user or null if not found)
+  status: 'active' | 'blocked',
+) => {
+  const user = await UserModel.findById(userId);
+  if (!user) {
+    return null;
+  }
+  user.status = status;
+  await user.save();
+  return user;
 };
 
 export const UserServices = {
@@ -45,4 +51,5 @@ export const UserServices = {
   getAllUsersFromDB,
   getMe,
   profileUpdate,
+  updateUserStatus,
 };

@@ -67,10 +67,8 @@ const updateProfile = catchAsync(async (req, res) => {
 
 // delete
 const deleteUser = catchAsync(async (req: Request, res: Response) => {
-  const { userId } = req.params; // Retrieve the user ID from params
-
-  const result = await deleteUserFromDB(userId); // Call the service to delete the user
-
+  const { userId } = req.params;
+  const result = await deleteUserFromDB(userId);
   if (!result) {
     return sendResponse(res, {
       statusCode: httpStatus.NOT_FOUND,
@@ -78,11 +76,30 @@ const deleteUser = catchAsync(async (req: Request, res: Response) => {
       message: 'User not found!',
     });
   }
-
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'User deleted successfully',
+  });
+});
+
+// Update status
+const updateUserStatus = catchAsync(async (req: Request, res: Response) => {
+  const { userId } = req.params;
+  const { status } = req.body;
+  if (!status || !['active', 'blocked'].includes(status)) {
+    throw new AppError(400, 'Invalid status value. Use "active" or "blocked".');
+  }
+  const updatedUser = await UserServices.updateUserStatus(userId, status);
+
+  if (!updatedUser) {
+    throw new AppError(404, 'User not found.');
+  }
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: `User status updated to ${status}`,
+    data: updatedUser,
   });
 });
 
@@ -92,4 +109,5 @@ export const UserController = {
   getMe,
   updateProfile,
   deleteUser,
+  updateUserStatus,
 };

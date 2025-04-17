@@ -1,3 +1,4 @@
+import { Request, Response } from 'express';
 import catchAsync from '../../../utility/catchAsync';
 import sendResponse from '../../../utility/sendResponse';
 import { productServices } from './product.service';
