@@ -20,8 +20,8 @@ router.patch(
 // get all users
 router.get('/all-users', auth('user', 'admin'), UserController.getAllUser);
 
-// Delete user
-router.delete('/:userId', UserController.deleteUser);
+// DELETE user
+router.delete('/:userId', auth('admin'), UserController.deleteUser);
 
 // Update status
 router.patch(

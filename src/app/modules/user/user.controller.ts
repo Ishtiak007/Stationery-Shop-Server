@@ -65,19 +65,20 @@ const updateProfile = catchAsync(async (req, res) => {
   });
 });
 
-// delete
+// Delete User
 const deleteUser = catchAsync(async (req: Request, res: Response) => {
-  const { userId } = req.params;
-  const result = await deleteUserFromDB(userId);
+  const { userId } = req.params; // Get the user ID from URL parameters
+
+  // Call the service to delete the user
+  const result = await UserServices.deleteUserFromDB(userId);
+
   if (!result) {
-    return sendResponse(res, {
-      statusCode: httpStatus.NOT_FOUND,
-      success: false,
-      message: 'User not found!',
-    });
+    throw new AppError(404, 'User not found'); // If user is not found, throw error
   }
+
+  // Send response with success message
   sendResponse(res, {
-    statusCode: httpStatus.OK,
+    statusCode: 200,
     success: true,
     message: 'User deleted successfully',
   });

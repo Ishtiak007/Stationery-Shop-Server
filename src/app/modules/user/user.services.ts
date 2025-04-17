@@ -46,10 +46,23 @@ const updateUserStatus = async (
   return user;
 };
 
+// Delete user from the database
+const deleteUserFromDB = async (userId: string): Promise<TUser | null> => {
+  // Find the user by ID and delete them
+  const user = await UserModel.findByIdAndDelete(userId);
+
+  if (!user) {
+    return null; // If the user is not found, return null
+  }
+
+  return user; // Return the deleted user object
+};
+
 export const UserServices = {
   registerUser,
   getAllUsersFromDB,
   getMe,
   profileUpdate,
   updateUserStatus,
+  deleteUserFromDB,
 };
