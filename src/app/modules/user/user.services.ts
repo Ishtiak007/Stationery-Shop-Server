@@ -58,6 +58,17 @@ const deleteUserFromDB = async (userId: string): Promise<TUser | null> => {
   return user; // Return the deleted user object
 };
 
+// Update status
+const updateUserrole = async (userId: string, role: 'admin' | 'user') => {
+  const user = await UserModel.findById(userId);
+  if (!user) {
+    return null;
+  }
+  user.role = role;
+  await user.save();
+  return user;
+};
+
 export const UserServices = {
   registerUser,
   getAllUsersFromDB,
@@ -65,4 +76,5 @@ export const UserServices = {
   profileUpdate,
   updateUserStatus,
   deleteUserFromDB,
+  updateUserrole,
 };

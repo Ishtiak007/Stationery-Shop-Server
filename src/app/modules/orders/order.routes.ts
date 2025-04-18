@@ -14,11 +14,7 @@ router.post('/', auth('admin', 'user'), OrderControllers.createOrder);
 router.get('/', auth('admin', 'user'), OrderControllers.getAllOrder);
 
 // Route to update order status
-router.patch(
-  '/:orderId',
-  auth('admin', 'user'),
-  OrderControllers.updateOrderStatus,
-);
+router.patch('/:orderId', auth('admin'), OrderControllers.updateOrderStatus);
 
 // delete
 router.delete('/:orderId', OrderControllers.deleteOrder);

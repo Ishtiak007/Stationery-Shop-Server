@@ -2,8 +2,6 @@ import { Request, Response } from 'express';
 import catchAsync from '../../../utility/catchAsync';
 import sendResponse from '../../../utility/sendResponse';
 import { productServices } from './product.service';
-import { ProductModel } from './product.model';
-import AppError from '../../../errors/AppError';
 
 const createProduct = catchAsync(async (req, res) => {
   const product = await productServices.createProductIntoDb(req.file, req.body);

@@ -24,10 +24,9 @@ router.get('/all-users', auth('user', 'admin'), UserController.getAllUser);
 router.delete('/:userId', auth('admin'), UserController.deleteUser);
 
 // Update status
-router.patch(
-  '/:userId/status',
-  auth('user', 'admin'),
-  UserController.updateUserStatus,
-);
+router.patch('/:userId/status', auth('admin'), UserController.updateUserStatus);
+
+// Update status
+router.patch('/:userId/role', auth('admin'), UserController.updateUserRole);
 
 export const UserRoutes = router;

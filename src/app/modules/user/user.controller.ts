@@ -104,6 +104,26 @@ const updateUserStatus = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+// Update role
+const updateUserRole = catchAsync(async (req: Request, res: Response) => {
+  const { userId } = req.params;
+  const { role } = req.body;
+  if (!role || !['admin', 'user'].includes(role)) {
+    throw new AppError(400, 'Invalid role value. Use "admin" or "user".');
+  }
+  const updatedUser = await UserServices.updateUserrole(userId, role);
+
+  if (!updatedUser) {
+    throw new AppError(404, 'User not found.');
+  }
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: `User role updated to ${role}`,
+    data: updatedUser,
+  });
+});
+
 export const UserController = {
   registerUser,
   getAllUser,
@@ -111,4 +131,5 @@ export const UserController = {
   updateProfile,
   deleteUser,
   updateUserStatus,
+  updateUserRole,
 };
