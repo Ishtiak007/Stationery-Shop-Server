@@ -16,12 +16,12 @@ router.post(
 router.post('/logout', AuthController.logout);
 
 //change password
-router.post(
-  '/change-password',
-  auth('user'),
-  validateRequest(AuthValidations.ChangePassValidationSchema),
-  AuthController.changePassword,
-);
+// router.post(
+//   '/change-password',
+//   auth('user'),
+//   validateRequest(AuthValidations.ChangePassValidationSchema),
+//   AuthController.changePassword,
+// );
 
 // refresh token
 router.post(

@@ -49,17 +49,17 @@ const logout = catchAsync(async (req, res) => {
 });
 
 //Change password
-const changePassword = catchAsync(async (req, res) => {
-  const { ...passwordData } = req.body;
+// const changePassword = catchAsync(async (req, res) => {
+//   const { ...passwordData } = req.body;
 
-  const result = await AuthServices.changePassword(req.user, passwordData);
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    message: 'Password changed successfully',
-    success: true,
-    data: result,
-  });
-});
+//   const result = await AuthServices.changePassword(req.user, passwordData);
+//   sendResponse(res, {
+//     statusCode: httpStatus.OK,
+//     message: 'Password changed successfully',
+//     success: true,
+//     data: result,
+//   });
+// });
 
 // refresh token
 const refreshToken = catchAsync(async (req, res) => {
@@ -77,6 +77,6 @@ const refreshToken = catchAsync(async (req, res) => {
 export const AuthController = {
   loginUser,
   logout,
-  changePassword,
+  // changePassword,
   refreshToken,
 };
