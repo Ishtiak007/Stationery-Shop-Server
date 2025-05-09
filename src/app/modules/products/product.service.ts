@@ -53,10 +53,33 @@ const deleteProduct = async (productId: string) => {
   return await ProductModel.findByIdAndDelete(productId);
 };
 
+// product.service.ts
+const updateProductWithImageService = async (
+  productId: string,
+  file: any,
+  payload: Partial<TProduct>,
+) => {
+  if (file) {
+    const imageName = `$${payload.name}`;
+    const path = file?.path;
+
+    // upload new image to Cloudinary
+    const { secure_url } = await sendImageToCloudinary(imageName, path);
+    payload.productImg = secure_url as string;
+  }
+
+  return await ProductModel.findByIdAndUpdate(
+    productId,
+    { $set: payload },
+    { new: true, runValidators: true },
+  );
+};
+
 export const productServices = {
   createProductIntoDb,
   getAllProductFromDB,
   getSingleProductFromDB,
   updateProductFromDB,
   deleteProduct,
+  updateProductWithImageService,
 };

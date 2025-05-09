@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import AppError from '../../../errors/AppError';
 import catchAsync from '../../../utility/catchAsync';
 import sendResponse from '../../../utility/sendResponse';
-import { deleteUserFromDB, UserServices } from './user.services';
+import { UserServices } from './user.services';
 
 // Create User -register
 const registerUser = catchAsync(async (req, res) => {

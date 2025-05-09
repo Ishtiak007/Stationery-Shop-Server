@@ -20,11 +20,11 @@ router.post(
   ProductControllers.createProduct,
 );
 
-// get all products
-router.get('/', ProductControllers.getAllProduct);
-
 // product by Id
 router.get('/:productId', ProductControllers.getSingleProduct);
+
+// get all products
+router.get('/', ProductControllers.getAllProduct);
 
 // product update
 router.patch(
@@ -36,5 +36,20 @@ router.patch(
 
 // delete a product
 router.delete('/:productId', auth('admin'), ProductControllers.deleteProduct);
+
+// product.routes.ts
+router.patch(
+  '/update-product/:productId',
+  auth('admin'),
+  upload.single('file'),
+  (req: Request, res: Response, next: NextFunction) => {
+    if (req.body.data) {
+      req.body = JSON.parse(req.body.data);
+    }
+    next();
+  },
+  validateRequest(ProductValidations.updateProductValidation),
+  ProductControllers.updateProductWithImage,
+);
 
 export const ProductRoutes = router;

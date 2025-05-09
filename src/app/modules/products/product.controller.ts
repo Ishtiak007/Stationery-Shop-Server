@@ -80,10 +80,29 @@ const deleteProduct = catchAsync(async (req, res) => {
   });
 });
 
+// product.controller.ts
+const updateProductWithImage = catchAsync(async (req, res) => {
+  const updatedProduct = await productServices.updateProductWithImageService(
+    req.params.productId,
+    req.file,
+    req.body,
+  );
+
+  const isHas = updatedProduct ? true : false;
+
+  sendResponse(res, {
+    statusCode: isHas ? 200 : 404,
+    success: isHas,
+    message: isHas ? 'Product updated successfully' : 'Product not found',
+    data: isHas ? updatedProduct : [],
+  });
+});
+
 export const ProductControllers = {
   createProduct,
   getAllProduct,
   getSingleProduct,
   updateProduct,
   deleteProduct,
+  updateProductWithImage,
 };
