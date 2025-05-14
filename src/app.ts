@@ -9,8 +9,8 @@ import NotFound from './middlewares/NotFound';
 app.use(express.json());
 app.use(cookieParser());
 const corsOptions = {
-  origin: 'http://localhost:5173',
-  // origin: 'https://stationery-shop-frontend-beta.vercel.app',
+  // origin: 'http://localhost:5173',
+  origin: 'https://stationery-shop-frontend-beta.vercel.app',
   credentials: true, // Allow cookies to be sent
 };
 
